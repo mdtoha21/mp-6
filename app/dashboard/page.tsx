@@ -1,7 +1,9 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 
-export default function Dashboard() {
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+
+function DashboardContent() {
   const search = useSearchParams();
   const login = search.get("login");
   const avatar = search.get("avatar");
@@ -18,5 +20,13 @@ export default function Dashboard() {
         View GitHub Profile
       </a>
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }
